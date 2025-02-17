@@ -1,0 +1,7 @@
+node_modules/
+.env
+.env.local
+.env.* # If you have multiple env files
+logs/
+*.log
+npm-debug.log*
