@@ -97,4 +97,3 @@ module.exports = {
   logout,
   refreshToken,
 };
-// Exports the controller functions for use in route definitions.

@@ -1,9 +1,6 @@
 const bcrypt = require("bcryptjs");
-// Imports bcrypt for hashing passwords securely.
-
+const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-// Imports jsonwebtoken for creating and verifying JWTs.
-
 const {
   jwtAccessSecret,
   jwtRefreshSecret,
@@ -11,18 +8,13 @@ const {
   refreshTokenExpiry,
   bcryptSaltRounds,
 } = require("../config/env");
-// Destructures and imports configuration values from the environment file.
-
 const {
   createUser,
   getUserByUsername,
 } = require("../repositories/userRepository");
-// Imports user repository functions to interact with the user data store.
-
 const { blacklistToken } = require("../repositories/tokenRepository");
-// Imports the function to blacklist tokens.
-
 const blacklistCache = require("../utils/cache");
+// const { createAccount } = require("./accountService");
 // Imports the in-memory cache to optimize blacklist lookups.
 
 // Helper function to generate both access and refresh tokens for a given payload.
@@ -63,7 +55,9 @@ async function registerUser(email, firstName, lastName, password, role) {
   };
   // Constructs the user object with the username, hashed password, and a creation timestamp.
 
-  await createUser(userData);
+  User.validate(userData);
+  const user = new User(userData);
+  await createUser(user);
   // Stores the new user in the database.
 
   return { message: "User registered successfully" };

@@ -13,8 +13,8 @@ async function getUserByUsername(email) {
   }
 
   return {
-    key: "user:" + email, // Include the key
-    ...userRecord, // Spread the user details
+    key: "user:" + email,
+    ...userRecord,
   };
   // Looks up and returns a user object stored under a key that prefixes the email with "user:".
 }
